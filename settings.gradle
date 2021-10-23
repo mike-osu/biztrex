@@ -1,0 +1,2 @@
+rootProject.name = "BizTrex"
+include ':app'
