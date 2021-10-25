@@ -35,6 +35,8 @@ class SearchFragment : Fragment() {
 
         binding.btnSearch.setOnClickListener { loadList() }
 
+        binding.textViewManual.setOnClickListener { businessSelected("") }
+
         return binding.root
     }
 
