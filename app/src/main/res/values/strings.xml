@@ -6,4 +6,5 @@
     <string name="enter_new_expense">Enter New Expense</string>
     <string name="show_archived"><u>Show archived</u></string>
     <string name="edit_expense">Edit Expense</string>
+    <string name="email"><u>info@biztrex.com</u></string>
 </resources>

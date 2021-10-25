@@ -1,8 +1,11 @@
 package edu.oregonstate.biztrex
 
+import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import edu.oregonstate.biztrex.databinding.ActivityEnterBinding
 
 class EnterActivity : AppCompatActivity() {
@@ -21,6 +24,15 @@ class EnterActivity : AppCompatActivity() {
 
         var businessName = intent.extras?.getString("name") ?: ""
         binding.editTextBusiness.setText(businessName)
+
+        binding.btnEnter.setOnClickListener {
+            val dialogBuilder = AlertDialog.Builder(this)
+            dialogBuilder.setMessage("Your expense has been entered.")
+                .setPositiveButton("OK") { _, _ -> returnToSearch() }
+            val alert = dialogBuilder.create()
+            alert.setTitle("Success!")
+            alert.show()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -29,5 +41,10 @@ class EnterActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun returnToSearch() {
+        startActivity(Intent(this,MainActivity::class.java))
+        finish()
     }
 }

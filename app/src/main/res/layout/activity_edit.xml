@@ -85,7 +85,7 @@
         app:layout_constraintTop_toTopOf="@+id/chkArch" />
 
     <Button
-        android:id="@+id/btnEnter"
+        android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -94,5 +94,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewArchive" />
+
+    <ImageView
+        android:id="@+id/imageViewDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/baseline_delete_black_24"
+        app:tint="@android:color/darker_gray" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
