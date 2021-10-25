@@ -4,4 +4,6 @@
     <string name="view_all">View All</string>
     <string name="about">About</string>
     <string name="enter_new_expense">Enter New Expense</string>
+    <string name="show_archived"><u>Show archived</u></string>
+    <string name="edit_expense">Edit Expense</string>
 </resources>

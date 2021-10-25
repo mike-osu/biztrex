@@ -7,13 +7,36 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:id="@+id/textViewSelect"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:text="View All"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="32dp"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:text="Select an expense to edit or delete"
+        app:layout_constraintWidth_percent=".80"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewArchived"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="@string/show_archived"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewSelect"
+        app:layout_constraintStart_toStartOf="@+id/textViewSelect"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSelect" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvExpenses"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewSelect"
+        app:layout_constraintStart_toStartOf="@+id/textViewSelect"
+        app:layout_constraintTop_toBottomOf="@+id/textViewArchived" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
