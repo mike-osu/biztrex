@@ -21,7 +21,12 @@ class EditActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         binding.btnSave.setOnClickListener {
-            returnToList()
+            val dialogBuilder = AlertDialog.Builder(this)
+            dialogBuilder.setMessage("Your expense has been saved.")
+                .setPositiveButton("OK") { _, _ -> returnToList() }
+            val alert = dialogBuilder.create()
+            alert.setTitle("Done!")
+            alert.show()
         }
 
         binding.imageViewDelete.setOnClickListener {
