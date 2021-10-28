@@ -1,10 +1,14 @@
 package edu.oregonstate.biztrex
 
-import java.math.BigDecimal
-import java.time.LocalDate
+import io.objectbox.annotation.Entity
+import io.objectbox.annotation.Id
 
-data class Expense(var id: Long?,
-                   val description: String,
-                   val amount: BigDecimal,
-                   val dataPaid: String,
-                   val isArchived: Boolean = false)
+@Entity
+data class Expense(
+    @Id
+    var id: Long = 0,
+    var description: String? = null,
+    var amount: Float = 0.0f,
+    var datePaid: String? = null,
+    var isArchived: Boolean = false
+)

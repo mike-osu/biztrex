@@ -2,18 +2,15 @@ package edu.oregonstate.biztrex
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.oregonstate.biztrex.databinding.FragmentViewAllBinding
-import java.math.BigDecimal
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ViewAllFragment : Fragment() {
 
@@ -35,10 +32,14 @@ class ViewAllFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentViewAllBinding.inflate(layoutInflater)
-        loadList()
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        loadList()
     }
 
     private fun loadList() {
@@ -53,13 +54,7 @@ class ViewAllFragment : Fragment() {
     private fun prepareItems() {
         expensesList.clear()
         expenseListAdapter.notifyDataSetChanged()
-
-        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-        val currentDate = sdf.format(Date())
-
-        expensesList.add(Expense(1, "Chevron", BigDecimal("52.34"), currentDate))
-        expensesList.add(Expense(2, "Motel 6", BigDecimal("39.99"), currentDate))
-        expensesList.add(Expense(3, "Krispy Kreme", BigDecimal("12.34"), currentDate))
+        expensesList.addAll(ObjectBox.store.boxFor(Expense::class.java).all)
     }
 
     private fun expenseSelected(id: Long) {

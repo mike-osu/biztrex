@@ -6,6 +6,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import edu.oregonstate.biztrex.databinding.ActivityEnterBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 class EnterActivity : AppCompatActivity() {
 
@@ -21,17 +23,43 @@ class EnterActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        var businessName = intent.extras?.getString("name") ?: ""
+        val businessName = intent.extras?.getString("name") ?: ""
         binding.editTextBusiness.setText(businessName)
 
         binding.btnEnter.setOnClickListener {
-            val dialogBuilder = AlertDialog.Builder(this)
-            dialogBuilder.setMessage("Your expense has been entered.")
-                .setPositiveButton("OK") { _, _ -> returnToSearch() }
-            val alert = dialogBuilder.create()
-            alert.setTitle("Success!")
-            alert.show()
+            putExpense().let {
+                if (it) showAlert()
+            }
         }
+    }
+
+    private fun putExpense(): Boolean {
+        val desc = binding.editTextBusiness.text.toString().trim()
+        if (desc.isEmpty()) return false
+
+        var amt = binding.editTextAmount.text.toString().trim()
+        if (amt.isEmpty()) amt = "0.00"
+
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        val currentDate = sdf.format(Date())
+
+        val expense = Expense(description = desc,
+            amount = amt.toFloat(),
+            datePaid = currentDate,
+            isArchived = false)
+
+        val expenseBox = ObjectBox.store.boxFor(Expense::class.java)
+        expenseBox.put(expense)
+        return true
+    }
+
+    private fun showAlert() {
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setMessage("Your expense has been entered.")
+            .setPositiveButton("OK") { _, _ -> returnToSearch() }
+        val alert = dialogBuilder.create()
+        alert.setTitle("Success!")
+        alert.show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -21,7 +21,7 @@ internal class ExpenseListAdapter(private val expensesList: List<Expense>,
                 field = value
                 view.findViewById<TextView?>(R.id.tvDescription).text = value?.description
                 view.findViewById<TextView>(R.id.tvAmount).text = value?.amount.toString()
-                view.findViewById<TextView>(R.id.tvDatePaid).text = value?.dataPaid
+                view.findViewById<TextView>(R.id.tvDatePaid).text = value?.datePaid
                 val textViewId = view.findViewById<TextView>(R.id.tvId)
                 textViewId.text = value?.id.toString()
 
