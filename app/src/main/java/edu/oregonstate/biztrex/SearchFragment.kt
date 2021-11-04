@@ -48,17 +48,17 @@ class SearchFragment : Fragment() {
 
             binding.progressBarHolder.visibility = View.VISIBLE
             binding.progressBarLayout.visibility = View.VISIBLE
-            displayBusinesses(searchTerm)
+            displayBusinesses(searchTerm, "Honolulu")
         }
 
         binding.textViewManual.setOnClickListener { businessSelected("") }
         return binding.root
     }
 
-    private fun displayBusinesses(searchTerm: String) {
+    private fun displayBusinesses(searchTerm: String, location: String) {
         // make call to teammate's (Amy) business service
         // TODO: pass search term and location querystring params
-        val apiInterface = ApiInterface.create().getBusinesses()
+        val apiInterface = ApiInterface.create().getBusinesses(searchTerm, location)
         apiInterface.enqueue( object : Callback<List<ApiResponseItem>>{
             override fun onResponse(call: Call<List<ApiResponseItem>>?, response: Response<List<ApiResponseItem>>?) {
                 loadList()
