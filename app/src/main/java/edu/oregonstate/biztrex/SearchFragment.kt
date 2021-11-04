@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.oregonstate.biztrex.databinding.FragmentSearchBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SearchFragment : Fragment() {
 
@@ -38,12 +41,37 @@ class SearchFragment : Fragment() {
         binding.btnSearch.setOnClickListener {
             val imm = this.context?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(it.windowToken, 0)
-            loadList()
+
+            val searchTerm = binding.editTextSearch.text.toString().trim()
+            if (searchTerm == "")
+                return@setOnClickListener
+
+            binding.progressBarHolder.visibility = View.VISIBLE
+            binding.progressBarLayout.visibility = View.VISIBLE
+            displayBusinesses(searchTerm)
         }
 
         binding.textViewManual.setOnClickListener { businessSelected("") }
-
         return binding.root
+    }
+
+    private fun displayBusinesses(searchTerm: String) {
+        // make call to teammate's (Amy) business service
+        // TODO: pass search term and location querystring params
+        val apiInterface = ApiInterface.create().getBusinesses()
+        apiInterface.enqueue( object : Callback<List<ApiResponseItem>>{
+            override fun onResponse(call: Call<List<ApiResponseItem>>?, response: Response<List<ApiResponseItem>>?) {
+                loadList()
+                prepareItems(response?.body())
+                binding.progressBarHolder.visibility = View.GONE
+                binding.progressBarLayout.visibility = View.INVISIBLE
+            }
+
+            override fun onFailure(call: Call<List<ApiResponseItem>>?, t: Throwable?) {
+                binding.progressBarHolder.visibility = View.GONE
+                binding.progressBarLayout.visibility = View.INVISIBLE
+            }
+        })
     }
 
     private fun loadList() {
@@ -52,18 +80,15 @@ class SearchFragment : Fragment() {
         val layoutManager = LinearLayoutManager(activity?.applicationContext)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = searchListAdapter
-        prepareItems()
     }
 
-    private fun prepareItems() {
+    private fun prepareItems(businesses: List<ApiResponseItem>?) {
         itemsList.clear()
         searchListAdapter.notifyDataSetChanged()
 
-        itemsList.add("Zuni Cafe")
-        itemsList.add("House of Prime Rib")
-        itemsList.add("Slanted Door")
-        itemsList.add("Tadich Grill")
-        itemsList.add("Krispy Kreme")
+        businesses?.forEach {
+            itemsList.add(it.business)
+        }
         searchListAdapter.notifyDataSetChanged()
     }
 
