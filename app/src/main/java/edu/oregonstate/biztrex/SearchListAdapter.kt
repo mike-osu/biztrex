@@ -9,6 +9,9 @@ import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
+/**
+ * Adapter for UI binding business search results for list display
+ */
 internal class SearchListAdapter(private val itemsList : List<String>,
                                  private val businessListener: (String) -> Unit)
     : RecyclerView.Adapter<SearchListAdapter.SearchItemViewHolder>() {
@@ -18,6 +21,7 @@ internal class SearchListAdapter(private val itemsList : List<String>,
         var layoutSearchItem: LinearLayout = view.findViewById(R.id.layoutSearchItem)
 
         init {
+            /** navigate to expense entry screen when user clicks on a business search result */
             layoutSearchItem.setOnClickListener { businessListener(itemTextView.text.toString()) }
         }
     }
@@ -33,6 +37,7 @@ internal class SearchListAdapter(private val itemsList : List<String>,
         val item = itemsList[position]
         holder.itemTextView.text = item
 
+        /** different color for alternating list rows */
         holder.itemView.background =  if(position % 2 == 0)
             ContextCompat.getDrawable(holder.itemView.context, R.drawable.ripple_white_smoke)
         else

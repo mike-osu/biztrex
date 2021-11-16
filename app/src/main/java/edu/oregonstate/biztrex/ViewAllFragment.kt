@@ -12,6 +12,9 @@ import edu.oregonstate.biztrex.databinding.FragmentViewAllBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * Screen for listing all entered expenses
+ */
 class ViewAllFragment : Fragment() {
 
     private lateinit var binding: FragmentViewAllBinding
@@ -23,10 +26,6 @@ class ViewAllFragment : Fragment() {
         fun newInstance(): ViewAllFragment {
             return ViewAllFragment()
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
@@ -51,12 +50,21 @@ class ViewAllFragment : Fragment() {
         prepareItems()
     }
 
+    /**
+     * Populate locally persisted expenses in a list
+     */
     private fun prepareItems() {
         expensesList.clear()
         expenseListAdapter.notifyDataSetChanged()
         expensesList.addAll(ObjectBox.store.boxFor(Expense::class.java).all)
     }
 
+    /**
+     * Listener method when user selects an expense
+     * Navigates to edit expense screen
+     *
+     * @param id    id of selected expense
+     */
     private fun expenseSelected(id: Long) {
         val intent = Intent(context, EditActivity::class.java)
         intent.putExtra("id", id)

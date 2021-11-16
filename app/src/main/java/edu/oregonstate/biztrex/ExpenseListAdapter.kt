@@ -9,6 +9,9 @@ import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
+/**
+ * Adapter for UI binding expense data for list display
+ */
 internal class ExpenseListAdapter(private val expensesList: List<Expense>,
                          private val expenseListener: (Long) -> Unit)
     : RecyclerView.Adapter<ExpenseListAdapter.ExpenseItemViewHolder>() {
@@ -26,6 +29,7 @@ internal class ExpenseListAdapter(private val expensesList: List<Expense>,
                 val textViewId = view.findViewById<TextView>(R.id.tvId)
                 textViewId.text = value?.id.toString()
 
+                /** navigate to detail when user clicks on an expense */
                 view.findViewById<LinearLayout>(R.id.layoutExpense).setOnClickListener{
                     val id: Long = (textViewId?.text ?: -1 ).toString().toLong()
                     expenseListener(id)
@@ -34,15 +38,16 @@ internal class ExpenseListAdapter(private val expensesList: List<Expense>,
     }
 
     @NonNull
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpenseListAdapter.ExpenseItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpenseItemViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.expense_item, parent, false)
-        return ExpenseListAdapter.ExpenseItemViewHolder(itemView, expenseListener)
+        return ExpenseItemViewHolder(itemView, expenseListener)
     }
 
     override fun onBindViewHolder(holder: ExpenseItemViewHolder, position: Int) {
         holder.expense =  expensesList[position]
 
+        /** different color for alternating list rows */
         holder.itemView.background =  if(position % 2 == 0)
             ContextCompat.getDrawable(holder.itemView.context, R.drawable.ripple_white_smoke)
         else

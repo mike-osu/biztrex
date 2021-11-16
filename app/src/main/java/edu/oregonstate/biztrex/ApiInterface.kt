@@ -6,6 +6,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+/**
+ * Interface for HTTP API requests
+ */
 interface ApiInterface {
 
     @GET("/results")
@@ -13,7 +16,11 @@ interface ApiInterface {
 
     companion object {
 
-        var BASE_URL = "http://10.0.2.2:5000/"  // Special alias to your host loopback interface (i.e., 127.0.0.1 on your development machine)
+        /**
+         * Special alias to host loopback interface (i.e., 127.0.0.1 on dev machine)
+         * https://developer.android.com/studio/run/emulator-networking
+         * */
+        var BASE_URL = "http://10.0.2.2:5000/"
 
         fun create() : ApiInterface {
 

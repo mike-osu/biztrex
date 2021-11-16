@@ -10,6 +10,9 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import edu.oregonstate.biztrex.databinding.ActivitySplashBinding
 
+/**
+ * Animated splash screen
+ */
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding

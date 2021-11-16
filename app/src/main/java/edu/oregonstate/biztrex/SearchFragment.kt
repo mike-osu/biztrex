@@ -15,6 +15,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/**
+ * Screen for searching for local businesses
+ */
 class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
@@ -28,10 +31,6 @@ class SearchFragment : Fragment() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +38,7 @@ class SearchFragment : Fragment() {
         binding = FragmentSearchBinding.inflate(layoutInflater)
 
         binding.btnSearch.setOnClickListener {
+            /** collapse keyboard if visible when user clicks 'Search' */
             val imm = this.context?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(it.windowToken, 0)
 
@@ -46,6 +46,7 @@ class SearchFragment : Fragment() {
             if (searchTerm == "")
                 return@setOnClickListener
 
+           /** display spinning circle while waiting for API response */
             binding.progressBarHolder.visibility = View.VISIBLE
             binding.progressBarLayout.visibility = View.VISIBLE
             displayBusinesses(searchTerm, "Honolulu")
@@ -55,9 +56,13 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Calls Amy's business service API
+     *
+     * @param searchTerm    user-entered search keyword(s)
+     * @param location      location for which to search for businesses
+     */
     private fun displayBusinesses(searchTerm: String, location: String) {
-        // make call to teammate's (Amy) business service
-        // TODO: pass search term and location querystring params
         val apiInterface = ApiInterface.create().getBusinesses(searchTerm, location)
         apiInterface.enqueue( object : Callback<List<ApiResponseItem>>{
             override fun onResponse(call: Call<List<ApiResponseItem>>?, response: Response<List<ApiResponseItem>>?) {
@@ -83,6 +88,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun prepareItems(businesses: List<ApiResponseItem>?) {
+        /** clear any prior results from list */
         itemsList.clear()
         searchListAdapter.notifyDataSetChanged()
 

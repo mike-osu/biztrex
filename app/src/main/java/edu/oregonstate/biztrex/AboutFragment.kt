@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import edu.oregonstate.biztrex.databinding.FragmentAboutBinding
 
+/**
+ * Screen for displaying app info
+ */
 class AboutFragment : Fragment() {
 
     private lateinit var binding: FragmentAboutBinding
@@ -15,10 +18,6 @@ class AboutFragment : Fragment() {
         fun newInstance(): AboutFragment {
             return AboutFragment()
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(

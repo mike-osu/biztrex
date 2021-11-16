@@ -9,6 +9,9 @@ import edu.oregonstate.biztrex.databinding.ActivityEnterBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * Screen for entering an expense
+ */
 class EnterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEnterBinding
@@ -33,6 +36,9 @@ class EnterActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Persist user-entered expense
+     */
     private fun putExpense(): Boolean {
         val desc = binding.editTextBusiness.text.toString().trim()
         if (desc.isEmpty()) return false

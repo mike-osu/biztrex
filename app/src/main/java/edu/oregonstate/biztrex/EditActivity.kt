@@ -6,6 +6,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import edu.oregonstate.biztrex.databinding.ActivityEditBinding
 
+/**
+ * Screen for editing or deleting an expense
+ */
 class EditActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditBinding
