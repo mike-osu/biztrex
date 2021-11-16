@@ -5,25 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="6dp"
-    android:background="?android:attr/selectableItemBackground">
+    android:padding="10dp"
+    android:clickable="true"
+    android:focusable="true">
 
     <TextView
         android:id="@+id/tvDescription"
-        android:layout_width="140dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/tvAmount"
-        android:layout_width="80dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/tvDatePaid"
-        android:layout_width="100dp"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:textSize="16sp"/>
 
     <TextView

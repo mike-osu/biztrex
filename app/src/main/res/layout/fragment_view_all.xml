@@ -31,13 +31,27 @@
         app:layout_constraintStart_toStartOf="@+id/textViewSelect"
         app:layout_constraintTop_toBottomOf="@+id/textViewSelect" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_start"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_end"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvExpenses"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="@+id/textViewSelect"
-        app:layout_constraintStart_toStartOf="@+id/textViewSelect"
+        app:layout_constraintEnd_toStartOf="@+id/guide_end"
+        app:layout_constraintStart_toEndOf="@+id/guide_start"
         app:layout_constraintTop_toBottomOf="@+id/textViewArchived" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

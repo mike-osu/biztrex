@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.NonNull
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 internal class ExpenseListAdapter(private val expensesList: List<Expense>,
@@ -41,6 +42,11 @@ internal class ExpenseListAdapter(private val expensesList: List<Expense>,
 
     override fun onBindViewHolder(holder: ExpenseItemViewHolder, position: Int) {
         holder.expense =  expensesList[position]
+
+        holder.itemView.background =  if(position % 2 == 0)
+            ContextCompat.getDrawable(holder.itemView.context, R.drawable.ripple_white_smoke)
+        else
+            ContextCompat.getDrawable(holder.itemView.context, R.drawable.ripple_white)
     }
 
     override fun getItemCount(): Int {
