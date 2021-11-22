@@ -8,4 +8,6 @@
     <string name="edit_expense">Edit Expense</string>
     <string name="email"><u>info@biztrex.com</u></string>
     <string name="enter_business_manually"><u>Enter business manually</u></string>
+    <string name="rationale_location">This app needs access to your location in order to search for local businesses.</string>
+    <string name="location_permission">Grant Location Permission</string>
 </resources>

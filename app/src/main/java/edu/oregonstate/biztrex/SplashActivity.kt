@@ -51,7 +51,7 @@ class SplashActivity : AppCompatActivity() {
             return
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this,PermissionActivity::class.java))
             finish()
         }, 1500L)
 
