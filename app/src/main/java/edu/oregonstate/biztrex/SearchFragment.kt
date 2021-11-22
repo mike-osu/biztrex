@@ -1,7 +1,9 @@
 package edu.oregonstate.biztrex
 
+import android.annotation.SuppressLint
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,8 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import edu.oregonstate.biztrex.databinding.FragmentSearchBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,6 +28,8 @@ class SearchFragment : Fragment() {
 
     private val itemsList = ArrayList<String>()
     private lateinit var searchListAdapter: SearchListAdapter
+    private var latitude: Double? = null
+    private var longitude: Double? = null
 
     companion object {
         fun newInstance(): SearchFragment {
@@ -49,21 +55,36 @@ class SearchFragment : Fragment() {
            /** display spinning circle while waiting for API response */
             binding.progressBarHolder.visibility = View.VISIBLE
             binding.progressBarLayout.visibility = View.VISIBLE
-            displayBusinesses(searchTerm, "Honolulu")
+            displayBusinesses(searchTerm)
         }
 
         binding.textViewManual.setOnClickListener { businessSelected("") }
+
+        getLocation()
+
         return binding.root
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getLocation() {
+        LocationServices.getFusedLocationProviderClient(requireContext()).lastLocation
+            .addOnSuccessListener { location: Location? ->
+                latitude =  location?.latitude
+                longitude = location?.longitude
+            }
     }
 
     /**
      * Calls Amy's business service API
      *
      * @param searchTerm    user-entered search keyword(s)
-     * @param location      location for which to search for businesses
      */
-    private fun displayBusinesses(searchTerm: String, location: String) {
-        val apiInterface = ApiInterface.create().getBusinesses(searchTerm, location)
+    private fun displayBusinesses(searchTerm: String) {
+        val apiInterface = if (latitude != null && longitude != null)
+            ApiInterface.create().getBusinessesByLatLong(searchTerm, latitude!!, longitude!!)
+        else
+            ApiInterface.create().getBusinesses(searchTerm, "San Francisco")
+
         apiInterface.enqueue( object : Callback<List<ApiResponseItem>>{
             override fun onResponse(call: Call<List<ApiResponseItem>>?, response: Response<List<ApiResponseItem>>?) {
                 loadList()

@@ -14,13 +14,18 @@ interface ApiInterface {
     @GET("/results")
     fun getBusinesses(@Query("term") searchTerm: String, @Query("location") location: String) : Call<List<ApiResponseItem>>
 
+    @GET("/results")
+    fun getBusinessesByLatLong(@Query("term") searchTerm: String,
+                               @Query("latitude") latitude: Double,
+                               @Query("longitude") longitude: Double) : Call<List<ApiResponseItem>>
+
     companion object {
 
         /**
-         * Special alias to host loopback interface (i.e., 127.0.0.1 on dev machine)
-         * https://developer.android.com/studio/run/emulator-networking
-         * */
-        var BASE_URL = "http://10.0.2.2:5000/"
+         * Deployed teammate's service with instructor's approval
+         * https://edstem.org/us/courses/14495/discussion/799922
+         */
+        var BASE_URL = "http://macosta.pythonanywhere.com/"
 
         fun create() : ApiInterface {
 
