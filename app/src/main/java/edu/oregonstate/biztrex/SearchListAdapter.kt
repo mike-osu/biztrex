@@ -39,9 +39,9 @@ internal class SearchListAdapter(private val itemsList : List<String>,
 
         /** different color for alternating list rows */
         holder.itemView.background =  if(position % 2 == 0)
-            ContextCompat.getDrawable(holder.itemView.context, R.drawable.ripple_white_smoke)
+            ContextCompat.getDrawable(holder.itemView.context, R.drawable.ripple_alt)
         else
-            ContextCompat.getDrawable(holder.itemView.context, R.drawable.ripple_white)
+            ContextCompat.getDrawable(holder.itemView.context, R.drawable.ripple)
     }
 
     override fun getItemCount(): Int {
