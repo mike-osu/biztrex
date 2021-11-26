@@ -91,6 +91,8 @@ class SearchFragment : Fragment() {
                 prepareItems(response?.body())
                 binding.progressBarHolder.visibility = View.GONE
                 binding.progressBarLayout.visibility = View.INVISIBLE
+                if (response?.body()?.isNotEmpty() == true)
+                    binding.imageSearch.visibility = View.INVISIBLE
             }
 
             override fun onFailure(call: Call<List<ApiResponseItem>>?, t: Throwable?) {

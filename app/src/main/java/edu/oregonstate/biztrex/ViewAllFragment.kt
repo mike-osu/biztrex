@@ -56,6 +56,11 @@ class ViewAllFragment : Fragment() {
     private fun prepareItems() {
         expensesList.clear()
         expenseListAdapter.notifyDataSetChanged()
+
+        val expenses = ObjectBox.store.boxFor(Expense::class.java).all
+        binding.imageEmpty.visibility = if (expenses.size > 0) View.INVISIBLE else View.VISIBLE
+        binding.textEmpty.visibility = if (expenses.size > 0) View.INVISIBLE else View.VISIBLE
+
         expensesList.addAll(ObjectBox.store.boxFor(Expense::class.java).all)
     }
 
