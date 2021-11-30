@@ -34,23 +34,27 @@ class EditActivity : AppCompatActivity() {
         }
 
         binding.btnSave.setOnClickListener {
-            saveExpense().let { if (it) showAlert() }
+            saveExpense().let { if (it) showSavedAlert() }
         }
 
         binding.imageViewDelete.setOnClickListener {
-            val dialogBuilder = AlertDialog.Builder(this)
-            dialogBuilder.setMessage("Are you sure.")
-                .setCancelable(false)
-                .setPositiveButton("OK") { _, _ ->
-                    deleteExpense().let {
-                        if (it) returnToList()
-                    }
-                }
-                .setNegativeButton("Cancel") { _, _ ->  }
-            val alert = dialogBuilder.create()
-            alert.setTitle("Delete Expense?")
-            alert.show()
+            showDeleteAlert()
         }
+    }
+
+    private fun showDeleteAlert() {
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setMessage("Are you sure.")
+            .setCancelable(false)
+            .setPositiveButton("OK") { _, _ ->
+                deleteExpense().let {
+                    if (it) returnToList()
+                }
+            }
+            .setNegativeButton("Cancel") { _, _ ->  }
+        val alert = dialogBuilder.create()
+        alert.setTitle("Delete Expense?")
+        alert.show()
     }
 
     private fun saveExpense(): Boolean {
@@ -66,7 +70,7 @@ class EditActivity : AppCompatActivity() {
         return true
     }
 
-    private fun showAlert() {
+    private fun showSavedAlert() {
         val dialogBuilder = AlertDialog.Builder(this)
         dialogBuilder.setMessage("Your expense has been saved.")
             .setPositiveButton("OK") { _, _ -> returnToList() }
