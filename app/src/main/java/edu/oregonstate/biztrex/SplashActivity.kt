@@ -30,11 +30,12 @@ class SplashActivity : AppCompatActivity() {
 
         zoom.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation) {
+                Thread.sleep(1000)
             }
 
             override fun onAnimationEnd(animation: Animation) {
                 isAnimationDone = true
-                Thread.sleep(2000)
+                Thread.sleep(1000)
                 binding.imageViewSplash.visibility = View.GONE
                 binding.splashProgressBar.visibility = View.VISIBLE
                 proceed()
@@ -53,7 +54,7 @@ class SplashActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this,PermissionActivity::class.java))
             finish()
-        }, 1500L)
+        }, 2000L)
 
         isAnimationDone = false
     }

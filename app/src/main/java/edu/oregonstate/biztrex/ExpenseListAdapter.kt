@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import java.util.*
 
 /**
  * Adapter for UI binding expense data for list display
@@ -24,7 +25,7 @@ internal class ExpenseListAdapter(private val expensesList: List<Expense>,
             set(value) {
                 field = value
                 view.findViewById<TextView?>(R.id.tvDescription).text = value?.description
-                view.findViewById<TextView>(R.id.tvAmount).text = value?.amount.toString()
+                view.findViewById<TextView>(R.id.tvAmount).text = String.format("%.2f", value?.amount?.toDouble())
                 view.findViewById<TextView>(R.id.tvDatePaid).text = value?.datePaid
                 val textViewId = view.findViewById<TextView>(R.id.tvId)
                 textViewId.text = value?.id.toString()
@@ -57,5 +58,4 @@ internal class ExpenseListAdapter(private val expensesList: List<Expense>,
     override fun getItemCount(): Int {
         return expensesList.count()
     }
-
 }
